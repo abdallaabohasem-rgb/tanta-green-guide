@@ -1,0 +1,53 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "tree-001",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [31.0019, 30.7885]
+      },
+      "properties": {
+        "name": "شجرة فيكوس - شارع البحر",
+        "status": "تجريبية"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "tree-002",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [30.9925, 30.8012]
+      },
+      "properties": {
+        "name": "شجرة كافور - منطقة الاستاد",
+        "status": "تجريبية"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "tree-003",
+      "geometry": { "type": "Point", "coordinates": [30.9966, 30.7829] },
+      "properties": { "name": "شجرة ٠٣", "status": "تجريبية" }
+    },
+    {
+      "type": "Feature",
+      "id": "tree-004",
+      "geometry": { "type": "Point", "coordinates": [30.9881, 30.7886] },
+      "properties": { "name": "شجرة ٠٤", "status": "تجريبية" }
+    },
+    {
+      "type": "Feature",
+      "id": "tree-005",
+      "geometry": { "type": "Point", "coordinates": [31.0091, 30.7941] },
+      "properties": { "name": "شجرة ٠٥", "status": "تجريبية" }
+    },
+    {
+      "type": "Feature",
+      "id": "tree-006",
+      "geometry": { "type": "Point", "coordinates": [31.0012, 30.7996] },
+      "properties": { "name": "شجرة ٠٦", "status": "تجريبية" }
+    }
+  ]
+}
