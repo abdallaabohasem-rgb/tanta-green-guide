@@ -24,11 +24,26 @@ function App() {
   const mapRef = useRef<Map | null>(null);
   const markerButtons = useRef<HTMLButtonElement[]>([]);
   const [trees, setTrees] = useState<Tree[]>([]);
-  const [selected, setSelected] = useState<number | null>(null);
+  const [selected, setSelected] = useState<Tree['id'] | null>(null);
   const [dataState, setDataState] = useState<'loading' | 'ready' | 'error'>('loading');
   const [mapError, setMapError] = useState(false);
   const [choosing, setChoosing] = useState(false);
   const [plantingLocation, setPlantingLocation] = useState<[number, number] | null>(null);
+
+  const opener = useRef<HTMLButtonElement | null>(null);
+  const dismissButton = useRef<HTMLButtonElement>(null);
+
+  function selectTree(tree: Tree, trigger: HTMLButtonElement) {
+    opener.current = trigger;
+    setChoosing(false);
+    setSelected(tree.id);
+    requestAnimationFrame(() => dismissButton.current?.focus({ preventScroll: true }));
+  }
+
+  function dismissTree() {
+    setSelected(null);
+    opener.current?.focus({ preventScroll: true });
+  }
 
   useEffect(() => {
     function navigate() {
@@ -83,6 +98,8 @@ function App() {
       if (map.isStyleLoaded()) setMapError(false);
     });
 
+    const observer = new ResizeObserver(() => map.resize());
+    observer.observe(map.getContainer());
     const bounds = new LngLatBounds();
     const markers = trees.map((tree, index) => {
       const [longitude, latitude] = tree.geometry.coordinates;
@@ -94,8 +111,7 @@ function App() {
       button.setAttribute('aria-label', `${tree.properties.name}، ${tree.properties.status}`);
       button.addEventListener('click', event => {
         event.stopPropagation();
-        setChoosing(false);
-        setSelected(index);
+        selectTree(tree, button);
       });
       bounds.extend(coordinates);
       return new Marker({ element: button }).setLngLat(coordinates).addTo(map);
@@ -109,6 +125,7 @@ function App() {
       });
     }
     return () => {
+      observer.disconnect();
       markers.forEach(marker => marker.remove());
       markerButtons.current = [];
       mapRef.current = null;
@@ -145,10 +162,10 @@ function App() {
   }, [plantingLocation, dataState]);
 
   useEffect(() => {
-    markerButtons.current.forEach((button, index) => button.setAttribute('aria-pressed', String(index === selected)));
+    markerButtons.current.forEach((button, index) => button.setAttribute('aria-pressed', String(trees[index]?.id === selected)));
   }, [selected, trees]);
 
-  const activeTree = selected === null ? undefined : trees[selected];
+  const activeTree = trees.find(tree => tree.id === selected);
   return (
     <>
       <header className="site-header">
@@ -160,23 +177,31 @@ function App() {
           <a href="#species-guide" aria-current={page === 'guide' ? 'page' : undefined}>دليل الأشجار</a>
         </nav>
       </header>
-      <main>
+      <main onKeyDown={event => { if (activeTree && event.key === 'Escape') dismissTree(); }}>
         <div hidden={page === 'guide'}>
         <div className="intro" id={page === 'planting' ? 'planting' : 'tree-map'}>
-          <h1>{page === 'planting' ? 'ازرع شجرة' : 'خريطة الأشجار'}</h1>
+          <h1>{page === 'planting' ? 'ازرع شجرة' : 'خريطة أشجار طنطا'}</h1>
           <p>{page === 'planting' ? 'حدد موقع الزراعة على الخريطة وسجّل بيانات المكان.' : 'اختار نقطة على خريطة طنطا عشان تشوف بطاقة الشجرة.'}</p>
         </div>
         <div className={`workspace ${page === 'planting' ? 'planting-page' : ''}`}>
           <section className="map-frame" aria-label="خريطة طنطا التفاعلية">
             <div className="map" ref={mapContainer} dir="ltr" />
             <div className="legend">
-              {page === 'map' && <><span aria-hidden="true" /> نقاط تجريبية</>}
-              {page === 'planting' && !plantingLocation && 'اختار موقع الزراعة'}
+              {<><span aria-hidden="true" /> نقاط تجريبية</>}
+              {choosing && '· اضغط لتحديد الموقع'}
               {plantingLocation && <><i aria-hidden="true" /> موقع مؤقت</>}
             </div>
             {mapError && <p className="map-notice" role="status">تعذّر تحميل جزء من الخريطة. تقدر تفتح البطاقات من القائمة.</p>}
           </section>
           <aside aria-label={page === 'planting' ? 'بيانات موقع الزراعة' : 'بطاقات الأشجار'}>
+            {activeTree && (
+              <section className="tree-card" aria-labelledby="selected-tree">
+                <h3 id="selected-tree">{activeTree.properties.name}</h3>
+                <span className="status">بيانات {activeTree.properties.status}</span>
+                <p>معرّف الشجرة <bdi>{activeTree.id}</bdi></p>
+                <button ref={dismissButton} className="close" aria-label="إغلاق بطاقة الشجرة" onClick={dismissTree}>×</button>
+              </section>
+            )}
             <section hidden={page !== 'planting'} className="planting" aria-labelledby="planting-heading">
               <h2 id="planting-heading">ازرع شجرة</h2>
               <div className="planting-actions">
@@ -184,7 +209,7 @@ function App() {
                   setSelected(null);
                   setChoosing(true);
                   mapContainer.current?.scrollIntoView({ block: 'nearest' });
-                }}>{plantingLocation ? 'غيّر الموقع' : 'اختار موقع'}</button>
+                }}>{plantingLocation ? 'غيّر الموقع' : 'اقترح موقع زراعة'}</button>
                 {(choosing || plantingLocation) && <button onClick={() => {
                   if (!choosing) setPlantingLocation(null);
                   setChoosing(false);
@@ -203,26 +228,14 @@ function App() {
             <ul className="tree-list">
               {trees.map((tree, index) => (
                 <li key={tree.id}>
-                  <button aria-pressed={index === selected} onClick={() => {
-                    setChoosing(false);
-                    setSelected(index);
-                  }}>
+                  <button aria-pressed={tree.id === selected} onClick={event => selectTree(tree, event.currentTarget)}>
                     <span className="tree-number" aria-hidden="true">{format.format(index + 1)}</span>
                     {tree.properties.name}
                   </button>
                 </li>
               ))}
             </ul>
-            <div aria-live="polite">
-              {activeTree && (
-                <section className="tree-card" aria-label="بطاقة الشجرة المختارة">
-                  <button className="close" aria-label="إغلاق بطاقة الشجرة" onClick={() => setSelected(null)}>×</button>
-                  <span className="status">{activeTree.properties.status}</span>
-                  <h3>{activeTree.properties.name}</h3>
-                  <p>معرّف الشجرة <bdi>{activeTree.id}</bdi></p>
-                </section>
-              )}
-            </div>
+
             </div>
           </aside>
         </div>

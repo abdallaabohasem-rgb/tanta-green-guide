@@ -23,7 +23,7 @@ button:focus-visible { outline: 3px solid #a35419; outline-offset: 3px; }
 .site-nav { display: flex; gap: 1rem; margin-inline-start: auto; font-size: .9rem; }
 .site-nav a { color: #f7f8ee; padding-block: .5rem; }
 .site-nav a[aria-current='page'] { color: #d7e9ac; text-decoration-thickness: 3px; text-underline-offset: 6px; }
-.planting-page .tree-pin { display: none; }
+
 a:focus-visible, summary:focus-visible { outline: 3px solid #a35419; outline-offset: 3px; }
 .species-guide { margin-top: 0; }
 .species-guide h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); margin: 0; }
@@ -173,3 +173,24 @@ aside h2 { font-size: 1.2rem; }
   .workspace, .species-grid { gap: .9rem; }
   aside { padding: 1rem; }
 }
+
+:root { --forest: #174d3a; --paper: #fffef9; --space: 1rem; --motion: 150ms; }
+.site-header { padding-block: .55rem; }
+main { padding-block-start: clamp(1rem, 2.4vw, 2rem); }
+.intro h1 { font-size: clamp(1.65rem, 3vw, 2.45rem); }
+.map { height: clamp(400px, 72svh, 820px); }
+.tree-card { margin: 0 0 var(--space); padding: var(--space); padding-inline-end: 3rem; border-inline-start: 4px solid var(--forest); background: #eef5e8; animation: reveal var(--motion) ease-out; }
+.tree-card h3 { margin: 0 0 .4rem; }
+.tree-card p { margin-top: .5rem; }
+.tree-pin[aria-pressed=true] { outline: 3px double white; outline-offset: -7px; }
+button, .site-nav a { transition: background-color var(--motion), box-shadow var(--motion); }
+:where(button, a, input, select, summary):focus-visible { outline: 3px solid #a35419; outline-offset: 2px; }
+@keyframes reveal { from { opacity: .35; translate: 0 4px; } }
+@media (hover: hover) { .tree-pin:hover, .planting-actions button:first-child:hover { background: var(--forest); box-shadow: 0 0 0 3px #cfdbbb; } }
+@media (max-width: 700px) {
+  .map { height: clamp(290px, 49svh, 470px); }
+  .tree-card { position: relative; inset: auto; box-shadow: none; }
+  .workspace:has(.tree-card) aside { padding-block-start: .7rem; }
+  .site-nav a { padding-block: .25rem; }
+}
+@media (prefers-reduced-motion: reduce) { :root { --motion: 0ms; } }
