@@ -1,0 +1,175 @@
+:root {
+  font-family: Tahoma, Arial, sans-serif;
+  color: #173b2e;
+  background: #f3f5ee;
+  font-synthesis: none;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; }
+button { font: inherit; cursor: pointer; }
+button:focus-visible { outline: 3px solid #a35419; outline-offset: 3px; }
+.site-header {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .85rem max(1rem, calc((100% - 1280px) / 2));
+  background: #133d30;
+  color: #f7f8ee;
+  font-size: 1.13rem;
+}
+.brand-icon { font-size: 1.65rem; color: #d7e9ac; }
+.site-header { flex-wrap: wrap; }
+.site-nav { display: flex; gap: 1rem; margin-inline-start: auto; font-size: .9rem; }
+.site-nav a { color: #f7f8ee; padding-block: .5rem; }
+.site-nav a[aria-current='page'] { color: #d7e9ac; text-decoration-thickness: 3px; text-underline-offset: 6px; }
+.planting-page .tree-pin { display: none; }
+a:focus-visible, summary:focus-visible { outline: 3px solid #a35419; outline-offset: 3px; }
+.species-guide { margin-top: 0; }
+.species-guide h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); margin: 0; }
+.guide-note { background: #f4e7c6; padding: 1rem; border-radius: 10px; line-height: 1.8; color: #674102; }
+.species-links { display: flex; gap: .6rem; flex-wrap: wrap; margin-block: 1.25rem; }
+.species-links a { padding: .65rem 1rem; border: 1px solid #8caa89; border-radius: 8px; background: #fffef9; }
+.species-guide a { color: #195c42; text-underline-offset: 3px; }
+.species-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.species-card { padding: 1.4rem; border: 1px solid #d5dfd2; border-radius: 16px; background: #fffef9; scroll-margin-top: 1rem; }
+.species-card h3 { font-size: 1.5rem; margin: 0; }
+.species-card .scientific { margin-top: .35rem; color: #496454; }
+.species-photo { margin: 1rem 0; }
+.species-photo img { display: block; width: 100%; height: 260px; object-fit: contain; border-radius: 10px; background: #edf3e8; }
+.species-photo figcaption { font-size: .75rem; line-height: 1.8; margin-top: .4rem; color: #496454; }
+.species-card h4 { margin: 1rem 0 .25rem; font-size: .95rem; }
+.species-card p { margin: .25rem 0; line-height: 1.8; }
+.species-facts { margin-block: 1rem; padding: .75rem; background: #edf3e8; border-radius: 10px; }
+.species-facts div { display: flex; justify-content: space-between; gap: 1rem; padding-block: .4rem; }
+.species-facts dd { margin: 0; text-align: end; }
+.species-card details { margin-top: 1.25rem; border-top: 1px solid #d5dfd2; padding-top: .75rem; }
+.species-card summary { cursor: pointer; line-height: 1.7; min-height: 44px; }
+.species-sources { display: grid; gap: .6rem; margin-top: 1rem; font-size: .85rem; line-height: 1.7; }
+.comparison-scroll { overflow-x: auto; border: 1px solid #d5dfd2; border-radius: 10px; }
+.comparison-scroll table { width: 100%; border-collapse: collapse; min-width: 590px; text-align: start; background: #fffef9; }
+.comparison-scroll caption { padding: .8rem; text-align: start; }
+.comparison-scroll th, .comparison-scroll td { text-align: start; padding: .85rem; border-top: 1px solid #d5dfd2; line-height: 1.6; }
+.comparison-scroll thead { background: #e9f2e2; }
+@media (max-width: 700px) {
+  .species-grid { grid-template-columns: 1fr; }
+  .species-card { padding: 1rem; }
+}
+main { max-width: 1312px; margin: auto; padding: 2rem 1rem; }
+.intro { margin-bottom: 1.45rem; }
+h1 { margin: 0; font-size: clamp(2rem, 5vw, 3rem); }
+.intro p, aside p { color: #496454; line-height: 1.65; }
+.intro p { margin: .55rem 0 0; }
+.workspace { display: grid; grid-template-columns: minmax(0, 1fr) minmax(250px, 305px); gap: 1rem; align-items: start; }
+.map-frame, aside { border: 1px solid #d5dfd2; border-radius: 16px; overflow: hidden; }
+.map-frame { position: relative; background: #e4ecdc; }
+.map { height: clamp(390px, 68vh, 750px); }
+.legend, .map-notice {
+  position: absolute;
+  right: .75rem;
+  padding: .55rem .75rem;
+  background: #fff;
+  border-radius: 9px;
+  box-shadow: 0 1px 6px #173b2e28;
+  font-size: .85rem;
+}
+.legend { top: .75rem; display: flex; align-items: center; gap: .45rem; }
+.legend span { width: .7rem; height: .7rem; border-radius: 50%; background: #177450; }
+.legend i { width: .65rem; height: .65rem; margin-inline-start: .25rem; background: #a35419; transform: rotate(45deg); }
+.map-notice { left: .75rem; bottom: 1.4rem; margin: 0; }
+aside { padding: 1.1rem; background: #fffef9; }
+aside h2 { margin: 0 0 1rem; font-size: 1.05rem; }
+.planting { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #d8e3d5; }
+.planting-actions { display: flex; flex-wrap: wrap; gap: .45rem; }
+.planting-actions button, .planting-survey button { min-height: 44px; padding: .45rem .7rem; border: 1px solid #8caa89; border-radius: 8px; background: #e9f2e2; color: inherit; }
+.planting-actions button:disabled { cursor: default; opacity: .65; }
+.planting p { margin: .5rem 0 0; font-size: .88rem; }
+.planting-survey { margin-top: 1rem; }
+.planting-survey fieldset { display: grid; gap: .65rem; min-width: 0; margin: 0; padding: 0; border: 0; }
+.planting-survey legend { font-weight: bold; }
+.planting-survey label { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .25rem; font-size: .88rem; line-height: 1.5; }
+.planting-survey input, .planting-survey select { grid-column: 1 / -1; min-width: 0; width: 100%; height: 44px; padding: .5rem; border: 1px solid #8caa89; border-radius: 8px; font: inherit; color: inherit; background: white; }
+.planting-survey .survey-help { margin: 0; }
+.planting-optional summary { cursor: pointer; padding-block: .4rem; font-size: .88rem; }
+.planting-optional label { margin-block: .5rem; }
+.survey-review { margin-top: .85rem; padding: .75rem; border-radius: 8px; background: #f0f5e9; }
+.survey-review h3 { margin: 0; font-size: .95rem; }
+.survey-review h4 { margin: .6rem 0 0; font-size: .9rem; }
+.survey-review dl { margin: .5rem 0 0; font-size: .85rem; }
+.survey-review dl div { display: flex; justify-content: space-between; gap: .5rem; padding: .3rem 0; }
+.survey-review dd { margin: 0; text-align: end; max-width: 55%; }
+.planting-pin { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 7px; border: 2px solid white; background: #a35419; color: white; font-size: 1.5rem; font-weight: bold; pointer-events: none; }
+.tree-list { list-style: none; padding: 0; margin: 0; display: grid; gap: .55rem; }
+.tree-list button {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  width: 100%;
+  min-height: 48px;
+  padding: .5rem;
+  border: 1px solid #d8e3d5;
+  border-radius: 9px;
+  color: inherit;
+  background: #fff;
+  text-align: right;
+  line-height: 1.45;
+}
+.tree-list button:hover, .tree-list button[aria-pressed='true'] { background: #e9f2e2; border-color: #8caa89; }
+.tree-number { display: grid; place-items: center; flex: 0 0 1.65rem; height: 1.65rem; background: #ddebd7; border-radius: 50%; }
+.tree-pin {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  background: #177450;
+  color: #fff;
+  font-size: 1.13rem;
+  font-weight: bold;
+  box-shadow: 0 2px 8px #173b2e5e;
+}
+.tree-pin[aria-pressed='true'] { background: #133d30; box-shadow: 0 0 0 3px #ca9b45; z-index: 1; }
+.tree-card { position: relative; margin-top: 1rem; padding: 1rem; border-radius: 9px; background: #f0f5e9; }
+.tree-card h3 { margin: .7rem 0 .5rem; line-height: 1.5; font-size: 1.05rem; }
+.tree-card p { margin: 0; font-size: .9rem; }
+.status { display: inline-block; padding: .25rem .55rem; border-radius: 99px; color: #674102; background: #f4e7c6; font-size: .8rem; }
+.close { position: absolute; top: .25rem; left: .25rem; width: 44px; height: 44px; border: 0; background: transparent; color: inherit; font-size: 1.4rem; border-radius: 50%; }
+.close:hover { background: #e0ebd9; }
+@media (max-width: 700px) {
+  main { padding-top: 1.35rem; }
+  .workspace { grid-template-columns: 1fr; }
+  .map { height: clamp(300px, 50svh, 460px); }
+  .tree-card { position: fixed; z-index: 3; inset: auto .75rem .75rem; box-shadow: 0 5px 25px #173b2e50; }
+}
+
+/* Shared shell and responsive navigation */
+:root { font-family: "Segoe UI", Tahoma, Arial, sans-serif; background: #f7f6ef; }
+.site-header { background: #183e32; padding-block: .9rem; gap: .7rem; }
+.brand-icon { display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: .85rem .3rem .85rem .3rem; background: #d9e9ae; color: #183e32; font-weight: 700; }
+.site-nav { gap: .25rem; padding: .25rem; border: 1px solid #547064; border-radius: 2rem; }
+.site-nav a { display: grid; place-items: center; padding: .55rem 1rem; text-decoration: none; border-radius: 2rem; }
+.site-nav a:hover { background: #315a49; }
+.site-nav a[aria-current='page'] { background: #dfebb9; color: #183e32; font-weight: 700; }
+.intro, .species-guide > h2 { padding-inline-start: 1rem; border-inline-start: 5px solid #b88448; }
+h1, .species-guide h2 { line-height: 1.35; }
+.workspace { gap: 1.25rem; }
+.map-frame, aside, .species-card { border-color: #d8dfd3; border-radius: 20px; box-shadow: 0 6px 22px #243e2a0c; }
+aside { padding: 1.25rem; }
+aside h2 { font-size: 1.2rem; }
+.tree-number { flex-basis: 2.15rem; height: 2.15rem; border-radius: .65rem; background: #eaf1dd; font-weight: 700; }
+.tree-list button { min-height: 54px; padding-inline: .55rem; border-color: transparent; background: #f6f8f1; }
+.tree-list button[aria-pressed='true'] { border-inline-start: 4px solid #386348; }
+.legend { border-radius: 2rem; }
+.planting-actions button:first-child { color: white; background: #24533e; border-color: #24533e; }
+.species-grid { gap: 1.4rem; }
+.species-links a { text-decoration: none; border-radius: 2rem; }
+.species-links a:hover { background: #eaf1dd; }
+.species-card h3 { color: #234d37; }
+.species-card .scientific { font-family: Georgia, serif; font-style: italic; font-size: 1.1rem; }
+.species-facts { padding-inline: 1rem; }
+.species-facts div + div { border-top: 1px solid #d6e1cf; }
+@media (max-width: 700px) {
+  .site-nav { width: 100%; }
+  .site-nav a { flex: 1; padding-inline: .25rem; min-height: 44px; }
+  .workspace, .species-grid { gap: .9rem; }
+  aside { padding: 1rem; }
+}
