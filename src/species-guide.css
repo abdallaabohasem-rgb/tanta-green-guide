@@ -1,0 +1,148 @@
+.species-controls {
+  margin-block: 1.25rem;
+  padding: 1.15rem;
+  background: var(--color-surface-elevated, #fffef9);
+  border: 1px solid var(--color-border, #d5dfd2);
+  border-radius: 14px;
+}
+.species-controls-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-end;
+}
+.species-search-field, .species-sun-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.species-search-field {
+  flex: 1 1 280px;
+}
+.species-sun-field {
+  flex: 1 1 auto;
+}
+.species-search-field label, .species-sun-field label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-primary, #194b38);
+}
+.species-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+#species-search-input {
+  width: 100%;
+  height: 44px;
+  padding: 0.5rem 2.4rem 0.5rem 0.85rem;
+  border: 1px solid var(--color-border, #8caa89);
+  border-radius: 9px;
+  font: inherit;
+  color: inherit;
+  background: #ffffff;
+}
+#species-search-input:focus-visible {
+  outline: 3px solid #a35419;
+  outline-offset: 2px;
+}
+.species-clear-btn {
+  position: absolute;
+  inset-inline-end: 6px;
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: #6a7f72;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.species-clear-btn:hover {
+  background: #eef3ea;
+  color: #194b38;
+}
+.species-sun-controls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.species-sun-select {
+  height: 44px;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--color-border, #8caa89);
+  border-radius: 9px;
+  font: inherit;
+  color: inherit;
+  background: #ffffff;
+}
+.species-sun-select:focus-visible {
+  outline: 3px solid #a35419;
+  outline-offset: 2px;
+}
+.species-reset-btn {
+  height: 44px;
+  padding: 0.45rem 1rem;
+  border: 1px solid var(--color-border, #8caa89);
+  border-radius: 9px;
+  background: #edf3e8;
+  color: var(--color-primary, #194b38);
+  font-weight: 600;
+  font: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.species-reset-btn:hover {
+  background: #dce7d4;
+}
+.species-filter-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--color-border, #e3e8df);
+  font-size: 0.88rem;
+  color: #496454;
+}
+.species-reset-link {
+  background: none;
+  border: none;
+  color: #195c42;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+  font-size: 0.88rem;
+}
+.species-no-results {
+  grid-column: 1 / -1;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  background: #fffef9;
+  border: 2px dashed #ccd9c7;
+  border-radius: 16px;
+  margin-block: 1rem;
+}
+.species-no-results h3 {
+  font-size: 1.3rem;
+  color: #194b38;
+  margin: 0 0 0.5rem;
+}
+.species-no-results p {
+  color: #496454;
+  margin: 0 0 1.25rem;
+}
+.species-table-empty {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: #496454;
+}
+#species-search-input { padding-inline: 3rem; }
+.species-clear-btn { width: 44px; height: 44px; inset-inline-end: 0; }
+.species-reset-link { min-height: 44px; }
+#species-search-input:focus-visible,
+.species-sun-select:focus-visible { outline: 2px solid var(--color-accent-sun); }
